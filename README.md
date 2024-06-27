@@ -93,7 +93,7 @@ Este é o README do projeto de API web **Sistema de Biblioteca**, desenvolvido p
 1. **Clone o projeto**
 
    ```bash
-   git clone https://github.com/
+   git clone https://github.com/LuisFernando4527/ProjetoBiblioteca/blob/master/README.md?plain=1
    ```
 
 2. **Crie um ambiente virtual**
