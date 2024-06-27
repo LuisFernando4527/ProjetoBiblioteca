@@ -1,0 +1,5 @@
+.main_container {
+    background-image: url('../images/bg1.jpg');
+    background-color: rgba(0, 0, 0, 0.5);
+    background-blend-mode: multiply;
+}

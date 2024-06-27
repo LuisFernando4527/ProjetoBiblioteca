@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    
+<div class="main_container relative flex h-screen items-center justify-center bg-cover bg-center">
+    <div class="w-3/5 mx-auto py-10">
+        <h1 class="mb-4 text-3xl font-bold md:text-5xl lg:text-6xl text-center text-white">Gerenciar Livros</h1>
+        <form action="/book_edit" method="POST" class="bg-white p-8 shadow-md rounded-lg">
+            <input type="hidden" name="id_value" value="{{ book.id }}">
+            <!-- Campo Título -->
+            <div class="mb-6">
+                <label for="titulo" class="block text-gray-700 font-medium mb-2">Título</label>
+                <input type="text" id="titulo" name="titulo" value="{{ book.titulo }}"
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required>
+            </div>
+            <!-- Campo Editora -->
+            <div class="mb-6">
+                <label for="editora" class="block text-gray-700 font-medium mb-2">Editora</label>
+                <input type="text" id="editora" name="editora" value="{{ book.editora }}"
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required>
+            </div>
+            <!-- Campo Idioma -->
+            <div class="mb-6">
+                <label for="idioma" class="block text-gray-700 font-medium mb-2">Idioma</label>
+                <input type="text" id="idioma" name="idioma" value="{{ book.idioma }}"
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required>
+            </div>
+            <!-- Campo Sinopse -->
+            <div class="mb-6">
+                <label for="sinopse" class="block text-gray-700 font-medium mb-2">Sinopse</label>
+                <textarea id="sinopse" name="sinopse" rows="4"
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            </div>
+            <!-- Campo Autor -->
+            <div class="mb-6">
+                <label for="autor" class="block text-gray-700 font-medium mb-2">Autor</label>
+                <div class="flex gap-3">
+                    {% if author_data %}
+                    <select id="autor" name="autor"
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required>
+                        {% for author in author_data %}
+                        <option value="{{ author.id }}">{{ author.name }}</option>
+                        {% endfor %}
+                    </select>
+                    {% endif %}
+                    <button type="button" onclick="location.href='/author'"
+                        class="px-4 py-2 font-bold bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        + Adicionar Autor
+                    </button>
+                </div>
+            </div>
+            <!-- Botão de Submissão -->
+            <div class="text-center">
+                <button type="submit"
+                    class="bg-green-500 text-white px-6 py-2 rounded-lg shadow hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500">Editar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

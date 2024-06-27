@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="main_container relative flex h-screen items-center justify-center bg-cover bg-center">
+
+    <div class="w-3/5 mx-auto py-10">
+        <h1 class="mb-4 text-3xl font-bold md:text-5xl lg:text-6xl text-center text-white">Cadastre um autor</h1>
+        <form action="/author_register" method="POST" class="bg-white p-8 shadow-md rounded-lg">
+            <!-- Campo Título -->
+            <div class="mb-6">
+                <label for="autor" class="block text-gray-700 font-medium mb-2">Nome</label>
+                <input type="text" id="autor" name="autor"
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required>
+            </div>
+            <!-- Botão de Submissão -->
+            <div class="text-center">
+                <button type="submit"
+                    class="bg-blue-500 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Enviar</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

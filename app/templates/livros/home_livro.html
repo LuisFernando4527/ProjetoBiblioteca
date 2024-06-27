@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="main_container flex items-center justify-center bg-cover bg-center min-h-screen py-10">
+    <div class="container mx-auto px-4">
+        <h1 class="mb-8 mt-8 text-4xl font-bold text-center text-white">Gerenciar Livros</h1>
+
+        <!-- Formulário de Cadastro de Livros -->
+        <form action="/book_register" method="POST" class="bg-white p-8 shadow-md rounded-lg max-w-3xl mx-auto mb-10">
+            <!-- Campo Título -->
+            <div class="mb-6">
+                <label for="titulo" class="block text-gray-700 font-medium mb-2">Título</label>
+                <input type="text" id="titulo" name="titulo" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <!-- Campo Editora -->
+            <div class="mb-6">
+                <label for="editora" class="block text-gray-700 font-medium mb-2">Editora</label>
+                <input type="text" id="editora" name="editora" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <!-- Campo Idioma -->
+            <div class="mb-6">
+                <label for="idioma" class="block text-gray-700 font-medium mb-2">Idioma</label>
+                <input type="text" id="idioma" name="idioma" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <!-- Campo Sinopse -->
+            <div class="mb-6">
+                <label for="sinopse" class="block text-gray-700 font-medium mb-2">Sinopse</label>
+                <textarea id="sinopse" name="sinopse" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            </div>
+            <!-- Campo Autor -->
+            <div class="mb-6">
+                <label for="autor" class="block text-gray-700 font-medium mb-2">Autor</label>
+                <div class="flex items-center gap-4">
+                    {% if author_data %}
+                    <select id="autor" name="autor" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        {% for author in author_data %}
+                        <option value="{{ author.id }}">{{ author.name }}</option>
+                        {% endfor %}
+                    </select>
+                    {% endif %}
+                    <button type="button" onclick="location.href='/author'" class="px-4 py-2 font-bold bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">+ Adicionar Autor</button>
+                </div>
+            </div>
+            <!-- Botão de Submissão -->
+            <div class="text-center">
+                <button type="submit" class="bg-green-500 text-white px-6 py-2 rounded-lg shadow hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500">Enviar</button>
+            </div>
+        </form>
+
+        <!-- Lista de Livros Cadastrados -->
+        <h2 class="text-2xl font-bold mb-6 text-center text-white">Lista de Livros Cadastrados</h2>
+        <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+            <table class="min-w-full table-auto">
+                <thead class="bg-gray-200">
+                    <tr>
+                        <th class="py-3 px-4 text-left text-gray-700 font-medium">Título</th>
+                        <th class="py-3 px-4 text-left text-gray-700 font-medium">Editora</th>
+                        <th class="py-3 px-4 text-left text-gray-700 font-medium">Idioma</th>
+                        <th class="py-3 px-4 text-left text-gray-700 font-medium">Sinopse</th>
+                        <th class="py-3 px-4 text-left text-gray-700 font-medium">Autor</th>
+                        <th class="py-3 px-4 text-left text-gray-700 font-medium">Editar</th>
+                        <th class="py-3 px-4 text-left text-gray-700 font-medium">Excluir</th>
+                    </tr>
+                </thead>
+                <tbody id="book-list">
+                    {% if book_data %}
+                    {% for books in book_data %}
+                    <tr class="border-b">
+                        <td class="py-3 px-4">{{ books.titulo }}</td>
+                        <td class="py-3 px-4">{{ books.editora }}</td>
+                        <td class="py-3 px-4">{{ books.idioma }}</td>
+                        <td class="py-3 px-4">{{ books.sinopse }}</td>
+                        <td class="py-3 px-4">{{ books.author.name }}</td>
+                        <td class="py-3 px-4">
+                            <form action="/book_edit" method="get">
+                                <button type="submit" name="id_value" value="{{ books.id }}" class="bg-yellow-500 text-white px-4 py-2 rounded-lg shadow hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500">Editar</button>
+                            </form>
+                        </td>
+                        <td class="py-3 px-4">
+                            <form action="/delete_book" method="POST">
+                                <input type="hidden" name="book_id" value="{{ books.id }}">
+                                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg shadow hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <td class="py-3 px-4">Nenhum livro cadastrado. Cadastre um livro.</td>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
